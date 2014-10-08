@@ -1,0 +1,31 @@
+{
+  "author": {
+    "name": "Mustafa Dokumacı",
+    "email": "mustafa@foraa.com",
+    "url": "http://mustafadokumaci.com"
+  },
+  "name": "mongoose-archiver",
+  "description": "mongoose archiver plugin",
+  "version": "0.0.1",
+  "keywords": [
+    "mongoose",
+    "archiver",
+    "plugin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mstdokumaci/mongoose-archiver.git"
+  },
+  "homepage": "https://github.com/mstdokumaci/mongoose-archiver",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "mocha": "latest",
+    "should": "latest",
+    "mongoose": "latest"
+  },
+  "scripts": {
+    "test": "mocha test"
+  },
+  "license": "MIT"
+}
