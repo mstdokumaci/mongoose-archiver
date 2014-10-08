@@ -11,13 +11,17 @@ module.exports = function (schema, options) {
 		var doc = clone(this);
 		archive = new archive_model(doc);
 		archive.save(function (err) {
-			if (err) api.logger.error('Couldnt archive removed document: ' + JSON.stringify(doc));
+			if (err) api.logger.error('Could not archive removed document: ' + JSON.stringify(doc));
 
 			done();
 		});
 
 		next();
 	});
+
+	schema.statics.archive = function () {
+		return archive_model;
+	};
 
 	function clone (o) {
 		var clone, key;
@@ -54,11 +58,11 @@ module.exports = function (schema, options) {
 		return clone;
 	}
 
-	function get_archive_model = function (document) {
+	function get_archive_model (document) {
 		if (archive_model) return;
 
 		var connection = options.connection || document.constructor.collection.conn;
-		var name = options.name || document.constructor.modelName + 's_archive';
+		var name = options.name || document.constructor.modelName + '_archive';
 
 		archive_model = connection.model(name, schema);
 	};

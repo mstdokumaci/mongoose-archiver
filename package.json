@@ -22,7 +22,8 @@
   "devDependencies": {
     "mocha": "latest",
     "should": "latest",
-    "mongoose": "latest"
+    "mongoose": "latest",
+    "async": "latest"
   },
   "scripts": {
     "test": "mocha test"

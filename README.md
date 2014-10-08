@@ -1,4 +1,4 @@
 mongoose-archiver
 =================
 
-Archiving removed documents to seperate collection
+Archives removed documents to an archive collection
