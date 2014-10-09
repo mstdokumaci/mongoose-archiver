@@ -2,6 +2,7 @@ mongoose-archiver
 =================
 
 Archives removed documents to an archive collection
+
 [![Build Status](https://travis-ci.org/mstdokumaci/mongoose-archiver.svg?branch=master)](https://travis-ci.org/mstdokumaci/mongoose-archiver)
 
 ## How to install
