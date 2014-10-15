@@ -10,9 +10,10 @@ module.exports = function (schema, options) {
 		get_archive_model(this);
 
 		var doc = clone(this.toObject());
+		console.log(JSON.stringify(doc, null, 2));
 		archive = new archive_model(doc);
 		archive.save(function (err) {
-			if (err) api.logger.error('Could not archive removed document: ' + JSON.stringify(doc));
+			if (err) throw new Error('Could not archive removed document: ' + JSON.stringify(doc));
 
 			done();
 		});
