@@ -10,7 +10,8 @@ var schema = new mongoose.Schema({
 	bool: Boolean,
 	object: {
 		string: String
-	}
+	},
+	oid: mongoose.Schema.Types.ObjectId
 });
 schema.plugin(require('../archiver.js'));
 
@@ -31,7 +32,8 @@ describe('Document 1', function () {
 				number: 42 * i,
 				array: ['String ' + i, 'String ' + i],
 				bool: true,
-				object: {string: 'String ' + i}
+				object: {string: 'String ' + i},
+				oid: new mongoose.Types.ObjectId()
 			}));
 		}
 	});
@@ -61,7 +63,8 @@ describe('Document 1', function () {
 			number: 42 * 101,
 			array: ['String ' + 101, 'String ' + 101],
 			bool: true,
-			object: {string: 'String ' + 101}
+			object: {string: 'String ' + 101},
+			oid: new mongoose.Types.ObjectId()
 		});
 		doc.save(done);
 	});

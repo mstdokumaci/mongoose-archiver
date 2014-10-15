@@ -1,5 +1,5 @@
 
-var ObjectId = require('mongoose').Schema.Types.ObjectId;
+var ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = function (schema, options) {
 	var archive_model;
