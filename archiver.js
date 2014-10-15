@@ -1,14 +1,15 @@
 
 var ObjectId = require('mongoose').Schema.Types.ObjectId;
-var archive_model;
 
 module.exports = function (schema, options) {
+	var archive_model;
+
 	options = options || {};
 
 	schema.pre('remove', true, function (next, done) {
 		get_archive_model(this);
 
-		var doc = clone(this);
+		var doc = clone(this.toObject());
 		archive = new archive_model(doc);
 		archive.save(function (err) {
 			if (err) api.logger.error('Could not archive removed document: ' + JSON.stringify(doc));
