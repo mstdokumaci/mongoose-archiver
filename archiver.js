@@ -25,7 +25,7 @@ module.exports = function (schema, options) {
 	};
 
 	function clone (o) {
-		var clone, key;
+		var c, key;
 
 		if (o === null || o === undefined)
 			return o;
@@ -37,10 +37,10 @@ module.exports = function (schema, options) {
 				return o;
 			break;
 			case Array:
-				clone = [];
+				c = [];
 			break;
 			case Object:
-				clone = {};
+				c = {};
 			break;
 			case Function:
 				return null;
@@ -53,10 +53,10 @@ module.exports = function (schema, options) {
 		}
 
 		for (key in o) {
-			clone[key] = clone(o[key]);
+			c[key] = clone(o[key]);
 		}
 
-		return clone;
+		return c;
 	}
 
 	function get_archive_model (document) {
