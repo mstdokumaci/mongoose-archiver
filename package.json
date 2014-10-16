@@ -7,7 +7,7 @@
   "name": "mongoose-archiver",
   "description": "mongoose archiver plugin",
   "main": "./archiver",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "keywords": [
     "mongoose",
     "archiver",

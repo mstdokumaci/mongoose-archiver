@@ -6,20 +6,31 @@ module.exports = function (schema, options) {
 
 	options = options || {};
 
+	// add date field to schema
 	if (!options.date_field) options.date_field = 'removed_at';
 	var add_to_schema = {};
 	add_to_schema[options.date_field] = Date;
 	schema.add(add_to_schema);
 
 	schema.pre('remove', true, function (next, done) {
-		var me = this;
 		get_archive_model(this);
 
+		// copy document to archive model
 		var doc = new archive_model(this);
+
+		// renew document id
 		doc._id = new ObjectId();
+
+		// set date field
 		doc.set(options.date_field, new Date());
+
+		// save to archive collection
 		doc.save(function (err) {
-			if (err) throw new Error('Could not archive removed document: ' + JSON.stringify(doc) + ' ' + err);
+			if (err)
+				throw new Error(
+					'Could not archive removed document: ' + JSON.stringify(doc)
+					+ ' Because: '+ (err.stack || err)
+				);
 
 			done();
 		});
