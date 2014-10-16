@@ -6,14 +6,19 @@ module.exports = function (schema, options) {
 
 	options = options || {};
 
+	if (!options.date_field) options.date_field = 'removed_at';
+	var add_to_schema = {};
+	add_to_schema[options.date_field] = Date;
+	schema.add(add_to_schema);
+
 	schema.pre('remove', true, function (next, done) {
+		var me = this;
 		get_archive_model(this);
 
-		var doc = clone(this.toObject());
-		delete doc.__v;
-		delete doc._id;
-		archive = new archive_model(doc);
-		archive.save(function (err) {
+		var doc = new archive_model(this);
+		doc._id = new ObjectId();
+		doc.set(options.date_field, new Date());
+		doc.save(function (err) {
 			if (err) throw new Error('Could not archive removed document: ' + JSON.stringify(doc) + ' ' + err);
 
 			done();
@@ -26,46 +31,11 @@ module.exports = function (schema, options) {
 		return archive_model;
 	};
 
-	function clone (o) {
-		var c, key;
-
-		if (o === null || o === undefined)
-			return o;
-
-		switch (o.constructor) {
-			case Boolean:
-			case String:
-			case Number:
-				return o;
-			break;
-			case Array:
-				c = [];
-			break;
-			case Object:
-				c = {};
-			break;
-			case Function:
-				return null;
-			break;
-			default:
-				return (o['toHexString'])
-					? ObjectId(o.toHexString())
-					: JSON.parse(JSON.stringify(o));
-			break;
-		}
-
-		for (key in o) {
-			c[key] = clone(o[key]);
-		}
-
-		return c;
-	}
-
 	function get_archive_model (document) {
 		if (archive_model) return;
 
 		var connection = options.connection || document.constructor.collection.conn;
-		var name = options.name || document.constructor.modelName + '_archive';
+		var name = options.model_name || document.constructor.modelName + '_archive';
 
 		archive_model = connection.model(name, schema);
 	};

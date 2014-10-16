@@ -39,12 +39,14 @@ describe('Document 1', function () {
 	});
 
 	it('save docs', function (done) {
+		this.timeout(3000);
 		async.each(docs, function (doc, cb) {
 			doc.save(cb);
 		}, done);
 	});
 
 	it('remove', function (done) {
+		this.timeout(3000);
 		async.each(docs, function (doc, cb) {
 			doc.remove(cb);
 		}, done);
