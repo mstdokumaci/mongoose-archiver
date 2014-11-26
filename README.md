@@ -13,6 +13,7 @@ npm install mongoose-archiver
 
 ## How to use
 Add the plugin to your schema.
+
 ```js
 var your_schema = new Schema({
 	field: String
