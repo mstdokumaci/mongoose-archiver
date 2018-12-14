@@ -47,8 +47,9 @@ module.exports = function (schema, options) {
 		if (archive_model) return;
 
 		var connection = options.connection || document.collection.conn || document.constructor.collection.conn;
-		var name = options.model_name || document.modelName ? document.modelName + '_archive' : undefined || document.constructor.modelName ? document.constructor.modelName + '_archive' : undefined;
-
-		archive_model = connection.model(name, schema);
+		var name = options.model_name || document.modelName || document.constructor.modelName;
+		name = name + '_archive';
+		const newSchema = options.schema || schema;
+		archive_model = connection.model(name, newSchema);
 	};
 };
