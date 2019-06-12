@@ -20,6 +20,7 @@
   "homepage": "https://github.com/mstdokumaci/mongoose-archiver",
   "devDependencies": {
     "mocha": "latest",
+    "chai": "^3.5.0",
     "should": "latest",
     "mongoose": "latest",
     "async": "latest"
