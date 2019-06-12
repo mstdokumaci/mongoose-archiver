@@ -1,4 +1,3 @@
-
 module.exports = function (schema, options) {
 	var archive_model;
 
@@ -10,19 +9,33 @@ module.exports = function (schema, options) {
 	if (!options.archived_id) options.archived_id = 'archived_id';
 	var add_to_schema = {};
 	add_to_schema[options.date_field] = Date;
-	schema.add(add_to_schema);
+	add_to_schema[options.archived_id] = String;
+	if (options.schema) {
+		options.schema.add(add_to_schema);
+	} else {
+		schema.add(add_to_schema);
+	}
 
 	schema.pre('remove', true, function (next, done) {
 		get_archive_model(this);
 
+		// copy the doc so original _id isn't deleted
+		var copyDoc = JSON.parse(JSON.stringify(this));
+
+		// delete copyDoc so the old _id isn't used for the Arvhive id
+		delete copyDoc._id;
+
 		// copy document to archive model
-		var doc = new archive_model(this);
+		var doc = new archive_model(copyDoc);
 
 		// flat doc as new
 		doc.isNew = true;
 
 		// set date field
 		doc.set(options.date_field, new Date());
+
+		// set date field
+		doc.set(options.archived_id, this._id);
 
 		// save to archive collection
 		doc.save(function (err) {
